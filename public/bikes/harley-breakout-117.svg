@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="100%" height="100%">
+  <defs>
+    <radialGradient id="bgGlow-harley-breakout-117" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ea580c" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#09090b" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="metalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#71717a"/>
+      <stop offset="50%" stop-color="#27272a"/>
+      <stop offset="100%" stop-color="#52525b"/>
+    </linearGradient>
+    <linearGradient id="chromeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="35%" stop-color="#cbd5e1"/>
+      <stop offset="70%" stop-color="#475569"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+    <linearGradient id="bodyGrad-harley-breakout-117" x1="0%" y1="0%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#ea580c"/>
+      <stop offset="100%" stop-color="#18181b"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="480" fill="#09090b" rx="16"/>
+  <circle cx="400" cy="240" r="220" fill="url(#bgGlow-harley-breakout-117)"/>
+  <g opacity="0.08" stroke="#ffffff" stroke-width="1">
+    <line x1="100" y1="0" x2="100" y2="480"/><line x1="200" y1="0" x2="200" y2="480"/><line x1="300" y1="0" x2="300" y2="480"/>
+    <line x1="400" y1="0" x2="400" y2="480"/><line x1="500" y1="0" x2="500" y2="480"/><line x1="600" y1="0" x2="600" y2="480"/><line x1="700" y1="0" x2="700" y2="480"/>
+  </g>
+  <rect x="35" y="30" width="140" height="28" rx="6" fill="#18181b" stroke="#ea580c" stroke-width="1.2"/>
+  <text x="105" y="48" fill="#ea580c" font-family="system-ui, sans-serif" font-size="11" font-weight="700" text-anchor="middle" letter-spacing="1.5">CHOPPER</text>
+  <rect x="580" y="30" width="185" height="28" rx="6" fill="#18181b" stroke="#3f3f46" stroke-width="1"/>
+  <text x="672" y="48" fill="#e4e4e7" font-family="system-ui, sans-serif" font-size="11" font-weight="600" text-anchor="middle">1,923 cc • 102 HP</text>
+  <ellipse cx="400" cy="370" rx="300" ry="18" fill="#000000" opacity="0.75"/>
+  <g transform="translate(0, 20)">
+    <circle cx="230" cy="300" r="68" fill="#18181b" stroke="#3f3f46" stroke-width="8"/>
+    <circle cx="230" cy="300" r="50" fill="none" stroke="#71717a" stroke-width="2.5"/>
+    <circle cx="230" cy="300" r="22" fill="#27272a" stroke="#ea580c" stroke-width="2"/>
+    <path d="M 230 250 L 230 350 M 180 300 L 280 300 M 195 265 L 265 335 M 195 335 L 265 265" stroke="#52525b" stroke-width="2.5"/>
+    <circle cx="570" cy="300" r="68" fill="#18181b" stroke="#3f3f46" stroke-width="8"/>
+    <circle cx="570" cy="300" r="50" fill="none" stroke="#71717a" stroke-width="2.5"/>
+    <circle cx="570" cy="300" r="22" fill="#27272a" stroke="#ea580c" stroke-width="2"/>
+    <path d="M 570 250 L 570 350 M 520 300 L 620 300 M 535 265 L 605 335 M 535 335 L 605 265" stroke="#52525b" stroke-width="2.5"/>
+    <rect x="330" y="240" width="130" height="85" rx="10" fill="url(#metalGrad)" stroke="#52525b" stroke-width="2"/>
+    <polygon points="345,240 370,185 398,185 372,240" fill="#3f3f46" stroke="#71717a" stroke-width="1.5"/>
+    <polygon points="392,240 418,185 445,185 420,240" fill="#3f3f46" stroke="#71717a" stroke-width="1.5"/>
+    <path d="M 370 240 Q 385 290 440 295 L 210 305" fill="none" stroke="url(#chromeGrad)" stroke-width="8" stroke-linecap="round"/>
+    <path d="M 418 240 Q 435 305 460 310 L 220 320" fill="none" stroke="url(#chromeGrad)" stroke-width="7" stroke-linecap="round"/>
+    <path d="M 320 205 C 340 160 410 150 475 180 C 490 200 480 220 440 225 C 370 230 330 225 320 205 Z" fill="url(#bodyGrad-harley-breakout-117)" stroke="#ffffff" stroke-width="1.5"/>
+    <path d="M 360 170 Q 420 165 460 185" fill="none" stroke="#ffffff" stroke-width="2.5" opacity="0.6"/>
+    <path d="M 260 215 C 280 205 320 205 335 225 C 315 235 275 235 260 215 Z" fill="#18181b" stroke="#27272a" stroke-width="2"/>
+    <path d="M 190 265 C 190 230 240 220 270 230" fill="none" stroke="#ea580c" stroke-width="9" stroke-linecap="round"/>
+    <line x1="465" y1="180" x2="570" y2="300" stroke="url(#chromeGrad)" stroke-width="7" stroke-linecap="round"/>
+    <line x1="455" y1="180" x2="560" y2="300" stroke="#71717a" stroke-width="4"/>
+    <line x1="455" y1="140" x2="480" y2="175" stroke="#cbd5e1" stroke-width="6" stroke-linecap="round"/>
+    <polygon points="485,170 508,175 505,195 482,190" fill="#f8fafc" stroke="#ea580c" stroke-width="2"/>
+    <polygon points="508,175 620,150 620,215 505,195" fill="#ea580c" opacity="0.15"/>
+  </g>
+  <rect x="35" y="390" width="730" height="60" rx="10" fill="#121215" stroke="#27272a" stroke-width="1"/>
+  <text x="55" y="415" fill="#ea580c" font-family="system-ui, sans-serif" font-size="12" font-weight="800" letter-spacing="1">HARLEY-DAVIDSON</text>
+  <text x="55" y="437" fill="#ffffff" font-family="system-ui, sans-serif" font-size="15" font-weight="600">Breakout 117</text>
+  <text x="745" y="416" fill="#a1a1aa" font-family="system-ui, sans-serif" font-size="11" text-anchor="end">Starting at</text>
+  <text x="745" y="438" fill="#f59e0b" font-family="system-ui, sans-serif" font-size="16" font-weight="800" text-anchor="end">$425 <tspan font-size="11" font-weight="400" fill="#71717a">/mo</tspan></text>
+</svg>
