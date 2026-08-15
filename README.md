@@ -1,4 +1,6 @@
-# 🏍️ Speed Leasing — Premium Motorcycle Leasing Platform
+# 🏍️ Speed Leasing — Premium Motorcycle Leasing Platform (PoC)
+
+> **Note:** This project is a **Proof of Concept (PoC)** built to demonstrate an end-to-end digital leasing journey for premium motorcycles. It showcases real-time financial simulation, trade-in equity calculation, client application tracking, and streamlined quote generation within a modern serverless architecture.
 
 **Speed Leasing** is a sleek, modern web platform designed for interactive financial simulation and pre-approval application workflows for premium motorcycles (Harley-Davidson, Ducati, Indian Motorcycle, etc.).
 
