@@ -6,6 +6,7 @@ import { Bike, LeasingCalculationResult } from '../types/bike';
 import { BIKES_CATALOG } from '../lib/bikes-data';
 import TechSpecsBars from './TechSpecsBars';
 import ApplicationModal from './ApplicationModal';
+import TradeInModal from './TradeInModal';
 
 interface LeaseSimulatorProps {
   activeBikeId: string;
@@ -19,12 +20,27 @@ export default function LeaseSimulator({ activeBikeId, onBikeChange }: LeaseSimu
   const [annualMiles, setAnnualMiles] = useState<3000 | 6000 | 10000>(6000);
   const [includeMaintenance, setIncludeMaintenance] = useState<boolean>(true);
   const [includeInsurance, setIncludeInsurance] = useState<boolean>(false);
+  
+  // Modales
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isTradeInOpen, setIsTradeInOpen] = useState<boolean>(false);
+  const [tradeInCredit, setTradeInCredit] = useState<number>(0);
 
   // Moto active
   const currentBike: Bike = useMemo(() => {
     return BIKES_CATALOG.find((b) => b.id === activeBikeId) || BIKES_CATALOG[0];
   }, [activeBikeId]);
+
+  // Callback pour appliquer le montant de reprise (Trade-In)
+  const handleApplyTradeIn = (credit: number) => {
+    setTradeInCredit(credit);
+    // Calculer le pourcentage équivalent arrondi au pas de 5% (entre 0% et 30%)
+    const calculatedPercent = Math.min(
+      30,
+      Math.max(0, Math.round(((credit / currentBike.price) * 100) / 5) * 5)
+    );
+    setDownPaymentPercent(calculatedPercent);
+  };
 
   // Moteur de calcul financier (APR fixe 4.9%)
   const simulationResult: LeasingCalculationResult = useMemo(() => {
@@ -85,7 +101,7 @@ export default function LeaseSimulator({ activeBikeId, onBikeChange }: LeaseSimu
           Customize Your Payment Plan
         </h2>
         <p className="text-neutral-400 text-sm max-w-xl mx-auto mt-2">
-          Fine-tune contract terms, adjust down payment, and request immediate VIP pre-approval.
+          Fine-tune contract terms, adjust down payment, value your trade-in, and request immediate VIP pre-approval.
         </p>
       </div>
 
@@ -197,7 +213,7 @@ export default function LeaseSimulator({ activeBikeId, onBikeChange }: LeaseSimu
               </div>
             </div>
 
-            {/* 2. Down Payment Slider */}
+            {/* 2. Down Payment Slider & Trade-In Trigger */}
             <div>
               <div className="flex justify-between text-xs font-medium mb-2">
                 <span className="text-neutral-400">Initial Down Payment</span>
@@ -218,6 +234,18 @@ export default function LeaseSimulator({ activeBikeId, onBikeChange }: LeaseSimu
                 <span>0% ($0)</span>
                 <span>15%</span>
                 <span>30% (${Math.round(currentBike.price * 0.3).toLocaleString('en-US')})</span>
+              </div>
+
+              {/* Trade-In Link */}
+              <div className="flex items-center justify-between mt-3 pt-2.5 border-t border-neutral-800/60">
+                <span className="text-[11px] text-neutral-400">Trading in your current ride?</span>
+                <button
+                  type="button"
+                  onClick={() => setIsTradeInOpen(true)}
+                  className="text-xs font-bold text-amber-400 hover:text-amber-300 transition-colors flex items-center gap-1.5 bg-amber-500/10 px-2.5 py-1 rounded-lg border border-amber-500/20"
+                >
+                  ⚡ Value Trade-In {tradeInCredit > 0 ? `(+$${tradeInCredit.toLocaleString('en-US')})` : ''}
+                </button>
               </div>
             </div>
 
@@ -301,7 +329,7 @@ export default function LeaseSimulator({ activeBikeId, onBikeChange }: LeaseSimu
               </label>
             </div>
 
-            {/* Estimated Output & Call to Action */}
+            {/* Estimated Output & Summary */}
             <div className="pt-4 border-t border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-4">
               <div>
                 <span className="text-[11px] text-neutral-400 uppercase tracking-wider block">
@@ -321,6 +349,7 @@ export default function LeaseSimulator({ activeBikeId, onBikeChange }: LeaseSimu
               </div>
             </div>
 
+            {/* Primary Action Button */}
             <button
               onClick={() => setIsModalOpen(true)}
               className="w-full py-3.5 bg-amber-500 hover:bg-amber-400 text-neutral-950 font-extrabold text-sm rounded-xl transition-all shadow-lg shadow-amber-500/20 active:scale-[0.99]"
@@ -331,11 +360,19 @@ export default function LeaseSimulator({ activeBikeId, onBikeChange }: LeaseSimu
         </div>
       </div>
 
-      {/* Modal de Pré-Approbation */}
+      {/* Modal 1: Pré-Approbation & Devis */}
       <ApplicationModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         simulation={simulationResult}
+      />
+
+      {/* Modal 2: Estimateur de Reprise (Trade-In) */}
+      <TradeInModal
+        isOpen={isTradeInOpen}
+        onClose={() => setIsTradeInOpen(false)}
+        onApplyTradeIn={handleApplyTradeIn}
+        currentMSRP={currentBike.price}
       />
     </section>
   );
