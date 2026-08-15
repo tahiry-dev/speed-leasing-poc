@@ -1,17 +1,38 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Image from 'next/image';
 import { Bike, LeasingCalculationRequest } from '../types/bike';
 import { BIKES_CATALOG, calculateLease } from '../lib/bikes-data';
+import ApplicationModal from './ApplicationModal';
 
-export default function LeaseSimulator() {
-  const [selectedBikeId, setSelectedBikeId] = useState<string>(BIKES_CATALOG[0].id);
+interface LeaseSimulatorProps {
+  activeBikeId?: string;
+  onBikeChange?: (bikeId: string) => void;
+}
+
+export default function LeaseSimulator({ activeBikeId, onBikeChange }: LeaseSimulatorProps) {
+  const [selectedBikeId, setSelectedBikeId] = useState<string>(activeBikeId || BIKES_CATALOG[0].id);
   const [durationMonths, setDurationMonths] = useState<24 | 36 | 48>(36);
   const [downPaymentPercent, setDownPaymentPercent] = useState<number>(15);
   const [annualMiles, setAnnualMiles] = useState<3000 | 6000 | 10000>(6000);
   const [includeMaintenance, setIncludeMaintenance] = useState<boolean>(true);
   const [includeInsurance, setIncludeInsurance] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  // Sync state if activeBikeId changes from comparison
+  useEffect(() => {
+    if (activeBikeId && activeBikeId !== selectedBikeId) {
+      setSelectedBikeId(activeBikeId);
+    }
+  }, [activeBikeId]);
+
+  const handleBikeSelection = (id: string) => {
+    setSelectedBikeId(id);
+    if (onBikeChange) {
+      onBikeChange(id);
+    }
+  };
 
   // Active selected bike object
   const selectedBike = useMemo(() => {
@@ -32,17 +53,17 @@ export default function LeaseSimulator() {
   }, [selectedBike.id, durationMonths, downPaymentPercent, annualMiles, includeMaintenance, includeInsurance]);
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 py-8">
+    <div id="simulator-section" className="w-full max-w-6xl mx-auto px-4 py-8 scroll-mt-20 border-t border-neutral-900">
       {/* Header section */}
       <div className="text-center mb-10">
         <span className="text-xs font-bold tracking-widest text-amber-500 uppercase bg-amber-500/10 px-3 py-1.5 rounded-full border border-amber-500/20">
-          Executive Motorcycle Leasing
+          Step 2: Financial Simulator
         </span>
         <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-3">
-          Configure Your Dream Ride
+          Customize Your Payment Plan
         </h2>
         <p className="text-neutral-400 max-w-2xl mx-auto mt-2 text-sm md:text-base">
-          Select a premium machine, customize your lease parameters, and get instant monthly installment simulations.
+          Fine-tune contract terms, adjust down payment, and request immediate VIP pre-approval.
         </p>
       </div>
 
@@ -53,7 +74,7 @@ export default function LeaseSimulator() {
           return (
             <button
               key={bike.id}
-              onClick={() => setSelectedBikeId(bike.id)}
+              onClick={() => handleBikeSelection(bike.id)}
               className={`flex-shrink-0 px-4 py-2.5 rounded-xl border text-sm font-semibold transition-all duration-200 ${
                 isSelected
                   ? 'bg-amber-500 text-neutral-950 border-amber-500 shadow-lg shadow-amber-500/20'
@@ -262,7 +283,7 @@ export default function LeaseSimulator() {
             </div>
 
             <button
-              onClick={() => alert(`Application initiated for ${selectedBike.brand} ${selectedBike.model} at $${leaseResult.monthlyTotal}/month.`)}
+              onClick={() => setIsModalOpen(true)}
               className="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-neutral-950 font-bold text-sm tracking-wide transition-all shadow-lg shadow-amber-500/20 active:scale-[0.99]"
             >
               Apply For Pre-Approval
@@ -270,6 +291,13 @@ export default function LeaseSimulator() {
           </div>
         </div>
       </div>
+
+      {/* Pre-Approval Application Modal */}
+      <ApplicationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        simulation={leaseResult}
+      />
     </div>
   );
 }

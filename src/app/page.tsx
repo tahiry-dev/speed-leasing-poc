@@ -1,6 +1,22 @@
+'use client';
+
+import React, { useState } from 'react';
+import BikeComparison from '../components/BikeComparison';
 import LeaseSimulator from '../components/LeaseSimulator';
+import { BIKES_CATALOG } from '../lib/bikes-data';
 
 export default function Home() {
+  const [activeBikeId, setActiveBikeId] = useState<string>(BIKES_CATALOG[0].id);
+
+  const handleSelectBikeFromComparison = (bikeId: string) => {
+    setActiveBikeId(bikeId);
+    // Smooth scroll to the simulator section
+    const simSection = document.getElementById('simulator-section');
+    if (simSection) {
+      simSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <main className="min-h-screen bg-neutral-950 text-white flex flex-col justify-between selection:bg-amber-500 selection:text-neutral-950">
       {/* Navigation Header */}
@@ -22,8 +38,12 @@ export default function Home() {
       </header>
 
       {/* Main Content Area */}
-      <div className="flex-1 py-6">
-        <LeaseSimulator />
+      <div className="flex-1 py-6 space-y-6">
+        {/* Step 1: Side-By-Side Comparison */}
+        <BikeComparison onSelectBike={handleSelectBikeFromComparison} />
+
+        {/* Step 2: Interactive Leasing Simulator */}
+        <LeaseSimulator activeBikeId={activeBikeId} onBikeChange={setActiveBikeId} />
       </div>
 
       {/* Footer */}
