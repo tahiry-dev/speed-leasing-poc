@@ -101,4 +101,5 @@ npm run start
 └── package.json
 
 ```
-
+### 📄 License
+This project is open-source and licensed under the MIT License.
